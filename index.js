@@ -28,6 +28,14 @@ app.get("/showAllBlogPosts", (req, res) => {
   res.status(200).json(BlogPosts);
 } );
 
+app.get("/showPost/:postId", (req, res) => {
+  const id = parseInt(req.params.postId);
+  const post = BlogPosts.filter (post => post.id === id);
+ (post.length !== 0) ? res.status(200).json(post) : res.status(404).json("User not found");
+});
+
+
+
 
 app.listen(PORT, () => {
  console.log("This server is running on port localhost: 3000")
