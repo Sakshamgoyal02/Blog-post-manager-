@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+const uuid = require("uuid");
+
+app.use(express.json());
 
 const PORT = 3000;
 
@@ -35,7 +38,19 @@ app.get("/showPost/:postId", (req, res) => {
 });
 
 
+app.post("/addPost", (req, res) => {
+//  console.log(req.body)
+const {title, email, author} = req.body 
 
+BlogPosts.push ({
+   id:uuid.v4(),
+   title,
+   email,
+   author
+})
+
+ res.status(200).json(BlogPosts);
+})
 
 app.listen(PORT, () => {
  console.log("This server is running on port localhost: 3000")
