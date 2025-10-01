@@ -37,13 +37,30 @@ app.delete ("/deletePosts/:id", (req, res) => {
  const found = BlogPosts.some( post => post.id === id);
 
  if(found){
-  const updatedPosts = BlogPosts.filter (post => post.id !== id);
-  res.status(200).json(updatedPosts);
+  const newPosts = BlogPosts.filter (post => post.id !== id);
+  res.status(200).json(newPosts);
  }else{
   res.status(400).json("Post not found")
  }
 
-})
+});
+
+
+app.put ("/updatePost/:id", (req, res) => {
+  const uid = parseInt(req.params.id);
+
+  const found = BlogPosts.find (post => post.id === uid);
+
+  if(found){
+      const updatePost = req.body;
+       found.title = updatePost.title;
+      found.email = updatePost.email;
+      found.author = updatePost.author;
+ res.status(200).json(BlogPosts);
+  }else{
+    res.status(400).json("post not found");
+  }
+});
 
 
 
